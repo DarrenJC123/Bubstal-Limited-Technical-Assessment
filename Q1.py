@@ -43,8 +43,6 @@ TEST_DATA = [
 
 class PredictSentiment:
     def __init__(self):
-        # self.training_data = training_data
-        # self.probabilities = self.calculate_probabilities()
         pass
 
     def calculate_class_proportions(self):
@@ -67,8 +65,8 @@ class PredictSentiment:
             elif label == "Frustrated":
                 for word in words:
                     self.frustrated_count[word] = self.frustrated_count.get(word, 0) + 1
-        self.happy_total = sum(self.happy_count.values())
-        self.frustrated_total = sum(self.frustrated_count.values())
+        self.happy_total_count = sum(self.happy_count.values())
+        self.frustrated_total_count = sum(self.frustrated_count.values())
     
     def train(self, training_data):
         self.training_data = training_data
@@ -81,13 +79,13 @@ class PredictSentiment:
         frustrated_prob = 1
         for word in words:
             if word in self.happy_count: # Only consider words seen in training
-                happy_prob *= (self.happy_count[word] + 1) / (self.happy_total + len(self.happy_count) + len(self.frustrated_count)) # Word is seen
+                happy_prob *= (self.happy_count[word] + 1) / (self.happy_total_count + len(self.happy_count) + len(self.frustrated_count)) # Word is seen
             else:
-                happy_prob *= 1 / (self.happy_total + len(self.happy_count) + len(self.frustrated_count)) # Unseen word, apply smoothing
+                happy_prob *= 1 / (self.happy_total_count + len(self.happy_count) + len(self.frustrated_count)) # Unseen word, apply smoothing
             if word in self.frustrated_count: # Only consider words seen in training
-                frustrated_prob *= (self.frustrated_count[word] + 1) / (self.frustrated_total + len(self.happy_count) + len(self.frustrated_count)) # Word is seen
+                frustrated_prob *= (self.frustrated_count[word] + 1) / (self.frustrated_total_count + len(self.happy_count) + len(self.frustrated_count)) # Word is seen
             else:
-                frustrated_prob *= 1 / (self.frustrated_total + len(self.happy_count) + len(self.frustrated_count)) # Unseen word, apply smoothing
+                frustrated_prob *= 1 / (self.frustrated_total_count + len(self.happy_count) + len(self.frustrated_count)) # Unseen word, apply smoothing
         happy_prob *= self.happy_proportion
         frustrated_prob *= self.frustrated_proportion
         return "Happy" if happy_prob > frustrated_prob else "Frustrated"

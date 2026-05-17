@@ -70,8 +70,8 @@ This single word biases the prediction toward Frustrated, overriding all happy s
 
 ### Solution
 Accuracy improves significantly with more training data because:
-- Words become more evenly distributed across both classes
-- The model learns that words like "quick" can appear in both positive and negative contexts
+- Words become more concentrated in the correct class
+- The model learns that words like "quick" appears more in the Happy class
 - Smoothing becomes less aggressive as vocabulary coverage increases
 
 ## Task 2: The Optimizer

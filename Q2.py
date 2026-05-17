@@ -18,6 +18,6 @@ def gradient_descent(initial_x, learning_rate, num_iterations):
             print(f"Iteration {i}: x = {x_next}, cost = {cost(x_next)}")
     return x_next
 
-print(gradient_descent(initial_x=0, learning_rate=0.99, num_iterations=250)) # Converge from the left
-print(gradient_descent(initial_x=3, learning_rate=0.99, num_iterations=250)) # Ensure proper early stopping
-print(gradient_descent(initial_x=6, learning_rate=0.99, num_iterations=250)) # Converge from the right
+print(f"Converged value (from left): {gradient_descent(initial_x=0, learning_rate=0.99, num_iterations=250)}") # Converge from the left
+print(f"Converged value (from middle): {gradient_descent(initial_x=3, learning_rate=0.99, num_iterations=250)}") # Ensure proper early stopping
+print(f"Converged value (from right): {gradient_descent(initial_x=6, learning_rate=0.99, num_iterations=250)}") # Converge from the right

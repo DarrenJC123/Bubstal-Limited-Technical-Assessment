@@ -88,11 +88,11 @@ class PredictSentiment:
                 frustrated_prob *= 1 / (self.frustrated_total_count + len(self.happy_count) + len(self.frustrated_count)) # Unseen word, apply smoothing
         happy_prob *= self.happy_proportion
         frustrated_prob *= self.frustrated_proportion
-        return "Happy" if happy_prob > frustrated_prob else "Frustrated"
-        
+        return ("Happy", happy_prob) if happy_prob > frustrated_prob else ("Frustrated", frustrated_prob)
+
 model = PredictSentiment()
 model.train(TRAINING_DATA)
 for test in TEST_DATA:
-    prediction = model.predict(test)
-    print(f"Text: '{test}' => Predicted Sentiment: {prediction}")
+    prediction, probability = model.predict(test)
+    print(f"Text: '{test}' => Predicted Sentiment: {prediction}, Probability: {probability}")
 
